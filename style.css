@@ -1,0 +1,385 @@
+/* ===== Variables & Theming ===== */
+:root {
+    --bg-color: #fff0f5; /* Lavender blush / pastel pink */
+    --text-color: #5c3a58;
+    --card-bg: #ffffff;
+    --primary-color: #ffb6c1; /* Light pink */
+    --secondary-color: #add8e6; /* Light blue */
+    --accent-color: #ffc0cb;
+    --shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+    --border-radius: 20px;
+    --btn-hover: #ff9fb4;
+    --header-font: 'Comic Sans MS', 'Poppins', cursive;
+    --body-font: 'Poppins', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-color: #2b1f31; /* Soft dark purple */
+    --text-color: #fce4ff;
+    --card-bg: #3d2c45;
+    --primary-color: #bf8bd6;
+    --secondary-color: #8c90c7;
+    --accent-color: #d68bba;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    --btn-hover: #a56fbc;
+}
+
+/* ===== Global Styles ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    background-image: radial-gradient(var(--card-bg) 2px, transparent 2px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ===== Header ===== */
+header {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+h1, h2 {
+    font-family: var(--header-font);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0px var(--card-bg), 4px 4px 6px rgba(0,0,0,0.05);
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    border: none;
+    cursor: pointer;
+    font-family: var(--body-font);
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.icon-btn {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.play-btn, .action-btn, .back-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.play-btn:hover, .action-btn:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.back-btn {
+    background-color: var(--secondary-color);
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+.back-btn:hover {
+    background-color: #8db5c4;
+    transform: translateX(-5px);
+}
+
+/* ===== Main Menu ===== */
+.active-view { display: flex !important; }
+.hidden { display: none !important; }
+
+#main-menu {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.game-card {
+    background-color: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    width: 280px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px var(--accent-color);
+    border-color: var(--primary-color);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+.game-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+/* ===== Game Views ===== */
+.game-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    animation: fade-in 0.5s ease forwards;
+}
+
+.game-view h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.badge, .status-badge {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status-badge {
+    background-color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* --- Tic Tac Toe --- */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 10px;
+    margin-bottom: 30px;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.cell {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cell:hover {
+    background-color: #fff5f7;
+}
+
+[data-theme="dark"] .cell:hover {
+    background-color: #4a3654;
+}
+
+.cell.glow-win {
+    animation: glow-win 1s infinite alternate;
+}
+
+/* --- Snake Game --- */
+#snake-game-canvas {
+    background-color: #fff8eb;
+    border: 4px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+[data-theme="dark"] #snake-game-canvas {
+    background-color: #262130;
+}
+
+/* --- Memory Game --- */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(4, 70px);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.memory-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.memory-card-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.memory-card-front, .memory-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.memory-card-back {
+    background-color: var(--primary-color);
+    background-image: radial-gradient(white 10%, transparent 11%), radial-gradient(white 10%, transparent 11%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.memory-card-front {
+    background-color: var(--card-bg);
+    transform: rotateY(180deg);
+    border: 2px solid var(--primary-color);
+}
+
+.memory-card.matched .memory-card-front {
+    background-color: #d4edda;
+    border-color: #28a745;
+    animation: bounce 0.5s ease;
+}
+
+[data-theme="dark"] .memory-card.matched .memory-card-front {
+    background-color: #2a4731;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-win {
+    from { box-shadow: inset 0 0 10px #ffd700, 0 0 10px #ffd700; background-color: #fffde7; }
+    to { box-shadow: inset 0 0 20px #ffd700, 0 0 20px #ffd700; background-color: #fff9c4; }
+}
+
+[data-theme="dark"] span.glow-win { background-color: #4b4b24; }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .memory-grid {
+        grid-template-columns: repeat(4, 60px);
+        grid-template-rows: repeat(4, 60px);
+        gap: 10px;
+    }
+    .board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    #snake-game-canvas {
+        max-width: 100%;
+        height: auto;
+    }
+}

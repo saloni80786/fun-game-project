@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎀 Fun Game Zone 🎀</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Header -->
+    <header>
+        <h1>🎀 Fun Game Zone 🎀</h1>
+        <div class="controls">
+            <button id="theme-toggle" class="btn icon-btn" title="Toggle Theme">🌙</button>
+            <button id="music-toggle" class="btn icon-btn" title="Toggle Music">🎶</button>
+        </div>
+    </header>
+
+    <!-- Main Menu -->
+    <main id="main-menu" class="active-view">
+        <div class="cards-container">
+            <!-- Tic Tac Toe Card -->
+            <div class="game-card" onclick="openGame('tictactoe')">
+                <div class="card-icon">💖⭐</div>
+                <h2>Tic Tac Toe</h2>
+                <p>Classic fun with cute symbols!</p>
+                <button class="btn play-btn">Play 💕</button>
+            </div>
+            
+            <!-- Snake Game Card -->
+            <div class="game-card" onclick="openGame('snake')">
+                <div class="card-icon">🐍🍓</div>
+                <h2>Snake Game</h2>
+                <p>Slither and collect sweet treats!</p>
+                <button class="btn play-btn">Play 💕</button>
+            </div>
+
+            <!-- Memory Game Card -->
+            <div class="game-card" onclick="openGame('memory')">
+                <div class="card-icon">🧠✨</div>
+                <h2>Memory Cards</h2>
+                <p>Match the cute emojis!</p>
+                <button class="btn play-btn">Play 💕</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tic Tac Toe View -->
+    <section id="tictactoe-view" class="game-view hidden">
+        <button class="btn back-btn" onclick="goBack()">🔙 Back</button>
+        <h2>💖 Tic Tac Toe ⭐</h2>
+        <div class="status-badge" id="ttt-status">Player 1's Turn (💖)</div>
+        <div class="board" id="ttt-board"></div>
+        <button class="btn action-btn" onclick="resetTicTacToe()">Restart Game 💫</button>
+    </section>
+
+    <!-- Snake Game View -->
+    <section id="snake-view" class="game-view hidden">
+        <button class="btn back-btn" onclick="goBack()">🔙 Back</button>
+        <h2>🐍 Snake Game 🍓</h2>
+        <div class="stats-container">
+            <div class="badge">Score: <span id="snake-score">0</span></div>
+            <div class="badge">High Score: <span id="snake-highscore">0</span></div>
+        </div>
+        <canvas id="snake-game-canvas" width="400" height="400"></canvas>
+        <button class="btn action-btn" onclick="startSnake()">Start/Restart 💫</button>
+    </section>
+
+    <!-- Memory Game View -->
+    <section id="memory-view" class="game-view hidden">
+        <button class="btn back-btn" onclick="goBack()">🔙 Back</button>
+        <h2>🧠 Memory Match 🌸</h2>
+        <div class="stats-container">
+            <div class="badge">Moves: <span id="memory-moves">0</span></div>
+            <div class="badge">Time: <span id="memory-time">0</span>s</div>
+        </div>
+        <div class="memory-grid" id="memory-board"></div>
+        <button class="btn action-btn" onclick="startMemoryGame()">Restart Game 💫</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
